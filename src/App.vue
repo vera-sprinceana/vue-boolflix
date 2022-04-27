@@ -1,10 +1,8 @@
 <template>
-  <div>
+  <div class="ciccio">
     <HeaderComp @inviaTesto="cercaTesto"/>
-    <MainComp
-     v-for="(element, index ) in moviesArray"
-    :key="index"
-    />
+  
+    <MainComp :propsFilm="moviesArray" :propsSerie="tvArray"/>
   </div>
 </template>
 
@@ -19,34 +17,46 @@ export default {
     HeaderComp,
     MainComp,
   },
+  
   data(){
     return{
       moviesArray:[],
-      apikey: '1e3cd7808e66baf68401346fc5900323',
+      tvArray:[],
+      apiKey: '1e3cd7808e66baf68401346fc5900323',
       testoRicerca:'',
     }
   },
-  created(){
-     axios.get('https://api.themoviedb.org/3/movie/76341?api_key=1e3cd7808e66baf68401346fc5900323&${testoRicerca}')
+   computed:{ 
+    },
+ 
+  methods: {
+    cercaTesto(filmCercato){
+       axios.get(`https://api.themoviedb.org/3/search/movie?api_key=1e3cd7808e66baf68401346fc5900323&query=${filmCercato}`)
          .then( ( res )=>{
            //Controllo delle informazioni che otteniamo alla chiamata
-           console.log( res.data );
+           console.log( res.data.results );
            //Modifica dell'array dove salveremo i dati
-           this.moviesArray = res.data
+           this.moviesArray=res.data.results
          } )
-         //Salvataggio in console di possibili errori
-         .catch( (error) => {
-           console.log( error )
-         } )
-  },
-  methods: {
-    cercaTesto(text){
-      this.testoRicerca=text
+          axios.get(`https://api.themoviedb.org/3/search/tv?api_key=1e3cd7808e66baf68401346fc5900323&query=${filmCercato}`)
+            .then( ( res )=>{
+           //Controllo delle informazioni che otteniamo alla chiamata
+              console.log( res.data.results );
+           //Modifica dell'array dove salveremo i dati
+             
+              this.tvArray=res.data.results
+            } )
     }
+    
   }
 }
 </script>
 
 <style lang="scss">
+
 @import "bootstrap/dist/css/bootstrap.min.css";
+.ciccio{
+  background-color: rgb(63, 63, 63);
+  height: 100%;
+}
 </style>

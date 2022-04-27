@@ -1,29 +1,39 @@
 <template>
-  <div>
+  <div class="container pt-2 bg_custom">
     <!--inserire contenuto componente-->
-    ciao
-    <FilmCard/>
-    <CardSeriestv/>
+    <div class="">
+      <FilmComp :props2Film="propsFilm"/>
+      <SerieComp :props2Serie="propsSerie"/>
+    </div>  
   </div>
 </template>
 
 <script>
-import FilmCard from './FilmCard.vue'
-import CardSeriestv from './CardSeriestv.vue'
+import FilmComp from './FilmComp.vue'
+import SerieComp from './SerieComp.vue'
 export default {
   //Cambiare il nome con quello del componente creato
 
   name: 'MainComp',
-  componente:{
-      FilmCard,
-      CardSeriestv,
+  components:{
+      FilmComp,
+      SerieComp,
+  },
+   props: {
+     propsFilm: Array,
+     propsSerie: Array,
+   },
+  data(){
+    return {
+      
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
  /*Inserire style componente*/
- div{
-     background-color: grey;
- }
+
+ 
+
 </style>

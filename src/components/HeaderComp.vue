@@ -4,7 +4,7 @@
     <h1 class="ms-3 ">boolflix</h1>
     <input type="text" class="me-3"
     v-model="searchMovie"
-    @keyup="$emit('inviaTesto', searchMovie)"
+    @keydown.enter.prevent="$emit('inviaTesto', searchMovie)"
     >
   </header>
 </template>
